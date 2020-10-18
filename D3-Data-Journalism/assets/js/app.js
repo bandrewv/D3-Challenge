@@ -5,10 +5,10 @@ var svgWidth = 750;
 var svgHeight = 700;
 
 var margin = {
-    top: 60,
-    right: 60,
+    top: 90,
+    right: 90,
     bottom: 90,
-    left: 60
+    left: 90
 };
 
 // Defining the dimensions of the chart area
@@ -30,24 +30,21 @@ d3.csv("assets/data/data.csv").then(healthData => {
 
     // Print the data
     console.log(healthData);
-    
-    stateAbbr = [];
 
     // Cast the poverty and obesity values to numbers
     healthData.forEach(data => {
         data.poverty = +data.poverty;
         data.obesity = +data.obesity;
-        stateAbbr.push(data.abbr);
     });
     
     // Configure a linear scale with a range between the chartHeight and 0
 
     var xLinearScale = d3.scaleLinear()
-    .domain([d3.min(healthData, d => d.obesity), d3.max(healthData, d => d.obesity)])
+    .domain([d3.min(healthData, d => d.poverty), d3.max(healthData, d => d.poverty)])
     .range([0, chartWidth]).nice();
 
     var yLinearScale = d3.scaleLinear()
-    .domain([d3.min(healthData, d => d.poverty), d3.max(healthData, d => d.poverty)])
+    .domain([d3.min(healthData, d => d.obesity), d3.max(healthData, d => d.obesity)])
     .range([chartHeight, 0]).nice();
 
     // Create two new functions passing the scales in as arguments
@@ -64,23 +61,23 @@ d3.csv("assets/data/data.csv").then(healthData => {
         .call(leftAxis);
 
     // Append scatter plot circles to the chart
-    var circlesGroup = svg.append("g")
+    var circlesGroup = chartGroup.append("g")
         .selectAll("circle")
         .data(healthData)
         .join("circle")
-        .attr("cx", d => xLinearScale(d.obesity))
-        .attr("cy", d => yLinearScale(d.poverty))
+        .attr("cx", d => xLinearScale(d.poverty))
+        .attr("cy", d => yLinearScale(d.obesity))
         .attr("r", 10)
         .attr("fill", "teal");
 
     // Add labels to the circle locations
-    var circleLabels = svg.append("g")
+    var circleLabels = chartGroup.append("g")
         .selectAll("text")
         .data(healthData)
         .join("text")
             .attr("id", "stateCode")
-            .attr("x", d => xLinearScale(d.obesity)-8)
-            .attr("y", d => yLinearScale(d.poverty)+5)
+            .attr("x", d => xLinearScale(d.poverty)-8)
+            .attr("y", d => yLinearScale(d.obesity)+5)
             .style("fill", "white")
             .style("font-size", 12)
             .text(d => d.abbr);
@@ -92,10 +89,10 @@ d3.csv("assets/data/data.csv").then(healthData => {
         .attr("x", 0 - (chartHeight / 2))
         .attr("dy", "1em")
         .attr("class", "axisText")
-        .text("Poverty Rate");
+        .text("Obesity Rate (%)");
     
     chartGroup.append("text")
-        .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + margin.top})`)
+        .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + margin.top / 2})`)
         .attr("class", "axisText")
-        .text("Obesity Rate");
+        .text("Poverty Rate (%)");
 });
