@@ -47,3 +47,17 @@
         var chartGroup = svg.append("g")
             .attr("transform", `translate(${margin.left}, ${margin.top})`);
         ```
+    * Load, print, and cast the data points you'll be using from strings to numbers
+        ```
+        // Load data from data.csv
+            d3.csv("assets/data/data.csv").then(healthData => {
+
+                // Print the data
+                console.log(healthData);
+
+                // Cast the poverty and obesity values to numbers
+                healthData.forEach(data => {
+                    data.poverty = +data.poverty;
+                    data.obesity = +data.obesity;
+                });
+        ```
