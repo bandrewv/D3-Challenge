@@ -123,7 +123,7 @@
             .text("Poverty Rate (%)");
         ```
 
-* In the HTML File, include your findings within the paragraph "<p>" elements
+* In the HTML File, include your findings within the paragraph elements
     ```
      <p>New data suggests there is a correlation between poverty rate and obesity rates in the United States and
     Washington DC. The chart above, consisting of 2015 CDC data, shows a positive correlation, meaning as the poverty
