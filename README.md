@@ -21,14 +21,14 @@
     * Add area dimensions for the SVG area that will store the chart, as well as the chart area dimensions including margins
         ```
         // Set dimensions and margins of the graph
-        var svgWidth = 960;
-        var svgHeight = 600;
+        var svgWidth = 750;
+        var svgHeight = 700;
 
         var margin = {
-            top: 60,
-            right: 60,
-            bottom: 60,
-            left: 60
+            top: 90,
+            right: 90,
+            bottom: 90,
+            left: 90
         };
 
         // Defining the dimensions of the chart area
@@ -41,4 +41,9 @@
         .append("svg")
         .attr("width", svgWidth)
         .attr("height", svgHeight);
+        ```
+    * Append a group area within the SVG area and set its margins
+        ```
+        var chartGroup = svg.append("g")
+            .attr("transform", `translate(${margin.left}, ${margin.top})`);
         ```
