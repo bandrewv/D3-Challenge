@@ -64,14 +64,26 @@ d3.csv("assets/data/data.csv").then(healthData => {
         .call(leftAxis);
 
     // Append scatter plot circles to the chart
-    var circlesGroup = chartGroup.selectAll("circle")
+    var circlesGroup = svg.append("g")
+        .selectAll("circle")
         .data(healthData)
         .join("circle")
         .attr("cx", d => xLinearScale(d.obesity))
         .attr("cy", d => yLinearScale(d.poverty))
-        .attr("r", 7.5)
-        .attr("fill", "blue")
-        .text(d => d.abbr)
+        .attr("r", 10)
+        .attr("fill", "teal");
+
+    // Add labels to the circle locations
+    var circleLabels = svg.append("g")
+        .selectAll("text")
+        .data(healthData)
+        .join("text")
+            .attr("id", "stateCode")
+            .attr("x", d => xLinearScale(d.obesity)-8)
+            .attr("y", d => yLinearScale(d.poverty)+5)
+            .style("fill", "white")
+            .style("font-size", 12)
+            .text(d => d.abbr);
 
     // Create axes labels
     chartGroup.append("text")
