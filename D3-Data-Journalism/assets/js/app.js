@@ -1,4 +1,28 @@
 // @TODO: YOUR CODE HERE!
+
+// Set dimensions and margins of the graph
+var svgWidth = 960;
+var svgHeight = 600;
+
+var margin = {
+    top: 60,
+    right: 60,
+    bottom: 60,
+    left: 60
+};
+
+// Defining the dimensions of the chart area
+var chartWidth = svgWidth - margin.left - margin.right;
+var chartHeight = svgHeight - margin.top - margin.bottom;
+
+// Select "scatter" id, append SVG area to it, and set its dimensions
+var svg = d3.select("#scatter")
+    .append("svg")
+    .attr("width", svgWidth)
+    .attr("height", svgHeight);
+
+
+
 // Load data from data.csv
 d3.csv("assets/data/data.csv").then(data => {
 
